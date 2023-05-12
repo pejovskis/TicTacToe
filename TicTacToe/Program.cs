@@ -8,5 +8,11 @@ namespace TicTacToe
         {
             Console.WriteLine("Hello World!");
         }
+
+        static string tabelle()
+        {
+
+        }
+
     }
 }
