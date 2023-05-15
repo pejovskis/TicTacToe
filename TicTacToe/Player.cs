@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Schema;
 
 namespace TicTacToe
 {
@@ -13,6 +14,7 @@ namespace TicTacToe
         public static bool boardFilled;
         private char symbol;
         private static int maxField;
+        private int score = 0;
         //Board
         private static string[] boardExample = new string[9];
         private static string[] board = new string[9];
@@ -91,8 +93,8 @@ namespace TicTacToe
                         gamePlay();
                     }
 
+                    //Call the gameStatusCheck Function and decrement maxField for 1
                     alive = gameStatusCheck(board, symbol);
-
                     maxField--;
 
                     if (maxField == 0)
@@ -103,11 +105,13 @@ namespace TicTacToe
                     if (boardFilled)
                     {
                         notification += "Game OVER! No Winner!";
+                        return;
                     }
 
                     if (!(alive))
                     {
                         notification += "Game OVER! " + name + " Won the game! \n";
+                        score++;
                     }
                     
                 }
@@ -146,6 +150,7 @@ namespace TicTacToe
             }
 
             return true;
+            
         }
 
         //Game Layout
@@ -153,6 +158,7 @@ namespace TicTacToe
         {
             Console.Clear();
             Console.WriteLine("Tic Tac Toe \n");
+            Console.WriteLine(name + " score: " + score);
             Board();
             Console.ForegroundColor= ConsoleColor.Green;
             Console.WriteLine(notification);
