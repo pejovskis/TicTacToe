@@ -11,9 +11,8 @@ namespace TicTacToe
         bool alive;
         char symbol;
 
-        //Tabelle
-        //static string[] tab = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
-        static string[] tab = new string[9];
+        //Board
+        static string[] board = new string[9];
 
         //Constructor
         public Player(string name, bool alive, char symbol)
@@ -33,29 +32,32 @@ namespace TicTacToe
 
         }
 
+        //Born players and initialize Board 
         public static void bornPlayers(Player player1, Player player2)
         {
 
-            for(int i = 0; i < tab.Length; i++)
+            //Table initialize
+            for(int i = 0; i < board.Length; i++)
             {
                 string x = Convert.ToString(i);
-                tab[i] = x;
+                board[i] = x;
             }
 
+            //Player born
             player1.SetAlive(true);
             player2.SetAlive(true);
 
             Console.WriteLine("Welcome to TicTacToe " + player1.GetName() + " and " + player2.GetName());
-
-            player1.Tabelle();
+            //Tabel show
+            player1.Board();
         }
 
-        //Tabelle generate
-        public void Tabelle()
+        //Board generate
+        public void Board()
         {
-            for (int i = 0; i < tab.Length; i++)
+            for (int i = 0; i < board.Length; i++)
             {
-                Console.Write(tab[i]);
+                Console.Write(board[i]);
                 if ((i + 1) % 3 == 0)
                 {
                     Console.WriteLine("");
@@ -72,26 +74,28 @@ namespace TicTacToe
         public void gamePlay()
         {
             
+            //Declaring player's turn
             Console.WriteLine(name + "'s turn");
             int playerMove = 0;
 
+            //Checking if the player gave the correct input || used a busy field and throw error n try again if not. 
             try
             {
                 playerMove = Convert.ToInt32(Console.ReadLine());
 
-                if (!(tab[playerMove].Equals("X")) && !(tab[playerMove].Equals("O")))
+                if (!(board[playerMove].Equals("X")) && !(board[playerMove].Equals("O")))
                 {
-                    tab[playerMove] = Convert.ToString(symbol);
+                    board[playerMove] = Convert.ToString(symbol);
                 } else
                 {
                     Console.WriteLine("Field already used. Try another one");
                     gamePlay();
                 }
 
-                Tabelle();
+                Board();
                 Console.WriteLine(name + " chose: " + playerMove);
 
-                alive = gameStatusCheck(tab, symbol);
+                alive = gameStatusCheck(board, symbol);
 
                 if (!(alive))
                 {

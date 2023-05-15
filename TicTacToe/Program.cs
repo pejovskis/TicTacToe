@@ -16,11 +16,13 @@ namespace TicTacToe
             Player.WelcomeScreen(playerOne, playerTwo);
 
             //Game playe function
-            gamePlay(playerOne, playerTwo);
+            gameOn(playerOne, playerTwo);
 
         }
 
-        static void gamePlay(Player playerOne, Player playerTwo)
+
+        //Game on: born players, restart table, start the game.
+        static void gameOn(Player playerOne, Player playerTwo)
         {
 
             //Players born
@@ -38,16 +40,22 @@ namespace TicTacToe
                 playerTwo.gamePlay();
             }
 
+            //Restart or quit Game on prompt
             gameRestart(playerOne, playerTwo);
         }  
 
+        //Game restarter
         static void gameRestart(Player playerOne, Player playerTwo)
         {
+
             Console.WriteLine("Would you like to play another one? - y / n");
             string restartInput = Console.ReadLine();
-            if(restartInput.Equals("y")) {
+
+            if(restartInput.Equals("y")) 
+            {
                 Player.bornPlayers(playerOne, playerTwo);
-                gamePlay(playerOne, playerTwo);
+                gameOn(playerOne, playerTwo);
+
             } else if (!(restartInput.Equals("n")))
             {
                 Console.WriteLine("Please press either 'y' or 'n'");
