@@ -104,8 +104,6 @@ namespace TicTacToe
                 gamePlay();
             }
 
-
-
         }
 
         //Status Check
@@ -136,6 +134,10 @@ namespace TicTacToe
 
             return true;
         }
+
+
+
+
 
         //Setter & Getter
         public void SetName(string name)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace TicTacToe
 {
@@ -11,19 +12,20 @@ namespace TicTacToe
             Player playerOne = new Player("playerOne", true, 'X');
             Player playerTwo = new Player("playerTwo", true, 'O');
 
+            //Welcome screen to meet the new players and enter their names
             Player.WelcomeScreen(playerOne, playerTwo);
-            Player.bornPlayers(playerOne, playerTwo);
 
+            //Game playe function
             gamePlay(playerOne, playerTwo);
-
-            Console.WriteLine("Would you like to play another one? y / n");
-            string gameRestarter = Console.ReadLine();
-            gameRestart(playerOne, playerTwo, gameRestarter);
 
         }
 
         static void gamePlay(Player playerOne, Player playerTwo)
         {
+
+            //Players born
+            Player.bornPlayers(playerOne, playerTwo);
+
             //Gameplay
             while (playerOne.GetAlive() && playerTwo.GetAlive())
             {
@@ -33,19 +35,23 @@ namespace TicTacToe
                 {
                     break;
                 }
-
                 playerTwo.gamePlay();
-
             }
+
+            gameRestart(playerOne, playerTwo);
         }  
 
-        static void gameRestart(Player playerOne, Player playerTwo, string gameRestarter)
+        static void gameRestart(Player playerOne, Player playerTwo)
         {
-            while (!(gameRestarter.Equals("n")))
-            {
+            Console.WriteLine("Would you like to play another one? - y / n");
+            string restartInput = Console.ReadLine();
+            if(restartInput.Equals("y")) {
                 Player.bornPlayers(playerOne, playerTwo);
                 gamePlay(playerOne, playerTwo);
-                gameRestarter= Console.ReadLine();
+            } else if (!(restartInput.Equals("n")))
+            {
+                Console.WriteLine("Please press either 'y' or 'n'");
+                gameRestart(playerOne, playerTwo);
             }
         }
 
