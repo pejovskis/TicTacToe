@@ -47,7 +47,7 @@ namespace TicTacToe
             player1.SetAlive(true);
             player2.SetAlive(true);
 
-            Console.WriteLine("Welcome to TicTacToe " + player1.GetName() + " and " + player2.GetName());
+            Console.WriteLine("Welcome to TicTacToe " + player1.GetName() + " ( X ) and " + player2.GetName() + " ( O )");
             //Tabel show
             player1.Board();
         }
@@ -55,6 +55,7 @@ namespace TicTacToe
         //Board generate
         public void Board()
         {
+            Console.WriteLine("Board fields: ");
             for (int i = 0; i < board.Length; i++)
             {
                 Console.Write(board[i]);
@@ -68,14 +69,35 @@ namespace TicTacToe
                     Console.Write(" | ");
                 }
             }
+            Console.WriteLine();
+            Console.WriteLine("Current board status: ");
+
+            for (int i = 0; i < board.Length; i++)
+            {
+                Console.Write(" ");
+                if ((i + 1) % 3 == 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("----------");
+                }
+                else
+                {
+                    Console.Write(" | ");
+                }
+            }
+
+
         }
 
         //Gameplay
         public void gamePlay()
         {
-            
+
+            Console.Clear();
+            Board();
+
             //Declaring player's turn
-            Console.WriteLine(name + "'s turn");
+            Console.Write(name + "'s ( " + symbol + " ) turn: ");
             int playerMove = 0;
 
             //Checking if the player gave the correct input || used a busy field and throw error n try again if not. 

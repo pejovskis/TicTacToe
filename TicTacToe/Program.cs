@@ -20,7 +20,6 @@ namespace TicTacToe
 
         }
 
-
         //Game on: born players, restart table, start the game.
         static void gameOn(Player playerOne, Player playerTwo)
         {
