@@ -7,12 +7,16 @@ namespace TicTacToe
     public class Player
     {
         //Feilds
-        string name;
-        bool alive;
-        char symbol;
+        private string name;
+        private bool alive;
+        private char symbol;
 
         //Board
-        static string[] board = new string[9];
+        private static string[] boardFields = new string[9];
+        private static string[] board = new string[9];
+
+        //Notifications
+        private String notification = "Notifications: \n";
 
         //Constructor
         public Player(string name, bool alive, char symbol)
@@ -35,27 +39,48 @@ namespace TicTacToe
         //Born players and initialize Board 
         public static void bornPlayers(Player player1, Player player2)
         {
-
-            //Table initialize
-            for(int i = 0; i < board.Length; i++)
+            // Table initialize
+            for (int i = 0; i < boardFields.Length; i++)
             {
                 string x = Convert.ToString(i);
-                board[i] = x;
+                boardFields[i] = x;
             }
 
-            //Player born
+            // Initialize board
+            for (int i = 0; i < board.Length; i++)
+            {
+                board[i] = " "; // Initialize with empty strings
+            }
+
+            // Player born
             player1.SetAlive(true);
             player2.SetAlive(true);
 
-            Console.WriteLine("Welcome to TicTacToe " + player1.GetName() + " ( X ) and " + player2.GetName() + " ( O )");
-            //Tabel show
-            player1.Board();
+
+            player1.gameLayout();
         }
 
         //Board generate
         public void Board()
         {
-            Console.WriteLine("Board fields: ");
+            Console.WriteLine("Example board:");
+            for (int i = 0; i < boardFields.Length; i++)
+            {
+                Console.Write(boardFields[i]);
+                if ((i + 1) % 3 == 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("----------");
+                }
+                else
+                {
+                    Console.Write(" | ");
+                }
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine("Current board status:");
             for (int i = 0; i < board.Length; i++)
             {
                 Console.Write(board[i]);
@@ -69,67 +94,55 @@ namespace TicTacToe
                     Console.Write(" | ");
                 }
             }
-            Console.WriteLine();
-            Console.WriteLine("Current board status: ");
+        }
 
-            for (int i = 0; i < board.Length; i++)
-            {
-                Console.Write(" ");
-                if ((i + 1) % 3 == 0)
-                {
-                    Console.WriteLine("");
-                    Console.WriteLine("----------");
-                }
-                else
-                {
-                    Console.Write(" | ");
-                }
-            }
-
-
+        //Game Layout
+        public void gameLayout()
+        {
+            Console.Clear();
+            Console.WriteLine("Tic Tac Toe \n");
+            Board();
+            Console.WriteLine(notification);
         }
 
         //Gameplay
         public void gamePlay()
         {
 
-            Console.Clear();
-            Board();
-
-            //Declaring player's turn
-            Console.Write(name + "'s ( " + symbol + " ) turn: ");
+            // Declaring player's turn
+            notification += name + "'s (" + symbol + ") turn: \n";
+            gameLayout();
             int playerMove = 0;
 
-            //Checking if the player gave the correct input || used a busy field and throw error n try again if not. 
+            // Checking if the player gave the correct input || used a busy field and throw error n try again if not.
             try
             {
                 playerMove = Convert.ToInt32(Console.ReadLine());
 
-                if (!(board[playerMove].Equals("X")) && !(board[playerMove].Equals("O")))
+                if ((!(board[playerMove].Equals("X")) && !(board[playerMove].Equals("O"))))
                 {
                     board[playerMove] = Convert.ToString(symbol);
-                } else
+                }
+                else
                 {
-                    Console.WriteLine("Field already used. Try another one");
+                    notification += "Field already used. Try another one. \n";
                     gamePlay();
                 }
 
-                Board();
-                Console.WriteLine(name + " chose: " + playerMove);
-
+                notification += name + " chose: " + playerMove + "\n";
                 alive = gameStatusCheck(board, symbol);
 
                 if (!(alive))
                 {
-                    Console.WriteLine("Game OVER!" + name + " Won the game!");
+                    notification += "Game OVER! " + name + " Won the game! \n";
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Input should be in range from 0 - 8. No letters or special characters.");
+                notification += "Input should be in the range from 0 to 8. No letters or special characters. \n";
                 gamePlay();
             }
-
+            notification = "Notifications: \n";
         }
 
         //Status Check
@@ -160,8 +173,6 @@ namespace TicTacToe
 
             return true;
         }
-
-
 
 
 
