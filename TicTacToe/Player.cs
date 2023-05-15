@@ -158,7 +158,7 @@ namespace TicTacToe
         {
             Console.Clear();
             Console.WriteLine("Tic Tac Toe \n");
-            Console.WriteLine(name + " score: " + score);
+            Console.WriteLine(name + " games won: " + score);
             Board();
             Console.ForegroundColor= ConsoleColor.Green;
             Console.WriteLine(notification);
