@@ -9,14 +9,16 @@ namespace TicTacToe
         //Feilds
         private string name;
         private bool alive;
+        public static bool boardFilled;
         private char symbol;
+        private static int maxField;
 
         //Board
         private static string[] boardFields = new string[9];
         private static string[] board = new string[9];
 
         //Notifications
-        private String notification = "Notifications: \n";
+        public static String notification = "Notifications: \n";
 
         //Constructor
         public Player(string name, bool alive, char symbol)
@@ -55,7 +57,8 @@ namespace TicTacToe
             // Player born
             player1.SetAlive(true);
             player2.SetAlive(true);
-
+            boardFilled = false;
+            maxField = 9;
 
             player1.gameLayout();
         }
@@ -109,40 +112,64 @@ namespace TicTacToe
         public void gamePlay()
         {
 
-            // Declaring player's turn
-            notification += name + "'s (" + symbol + ") turn: \n";
-            gameLayout();
-            int playerMove = 0;
-
-            // Checking if the player gave the correct input || used a busy field and throw error n try again if not.
-            try
+            if(!(boardFilled))
             {
-                playerMove = Convert.ToInt32(Console.ReadLine());
+                // Declaring player's turn
+                notification += name + "'s (" + symbol + ") turn: \n";
+                gameLayout();
+                int playerMove = 0;
 
-                if ((!(board[playerMove].Equals("X")) && !(board[playerMove].Equals("O"))))
+                // Checking if the player gave the correct input || used a busy field and throw error n try again if not.
+                try
                 {
-                    board[playerMove] = Convert.ToString(symbol);
+                    playerMove = Convert.ToInt32(Console.ReadLine());
+                    notification = "Notifications: \n";
+
+                    if ((!(board[playerMove].Equals("X")) && !(board[playerMove].Equals("O"))))
+                    {
+                        board[playerMove] = Convert.ToString(symbol);
+                        notification += name + " chose: " + playerMove + "\n";
+                    }
+                    else
+                    {
+                        notification += "Field already used. Try another one. \n";
+                        gamePlay();
+                    }
+
+                    alive = gameStatusCheck(board, symbol);
+
+                    maxField--;
+
+                    if (maxField == 0)
+                    {
+                        boardFilled = true;
+                    }
+
+                    if (boardFilled)
+                    {
+                        notification += "Game OVER! No Winner!";
+                    }
+
+                    if (!(alive))
+                    {
+                        notification += "Game OVER! " + name + " Won the game! \n";
+                        //return;
+                    }
+                    
                 }
-                else
+                catch (Exception e)
                 {
-                    notification += "Field already used. Try another one. \n";
+                    notification += "Input should be in the range from 0 to 8. No letters or special characters. \n";
                     gamePlay();
                 }
-
-                notification += name + " chose: " + playerMove + "\n";
-                alive = gameStatusCheck(board, symbol);
-
-                if (!(alive))
-                {
-                    notification += "Game OVER! " + name + " Won the game! \n";
-                }
-            }
-            catch (Exception e)
+            } 
+            else
             {
-                notification += "Input should be in the range from 0 to 8. No letters or special characters. \n";
-                gamePlay();
+                notification += "No more fields";
             }
-            notification = "Notifications: \n";
+
+
+            
         }
 
         //Status Check
@@ -185,20 +212,10 @@ namespace TicTacToe
         {
             this.alive = alive;
         }
-        public string GetName()
-        {
-            return this.name;
-        }
         public bool GetAlive()
         {
             return this.alive;
         }
-        public char GetSymbol()
-        {
-            return this.symbol;
-        }
-
-
 
     }
 }
