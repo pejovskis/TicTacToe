@@ -5,7 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 namespace TicTacToe
 {
     class Program
-    { 
+    {
         static void Main(string[] args)
         {
             //Object generate
@@ -16,51 +16,52 @@ namespace TicTacToe
             Player.WelcomeScreen(playerOne, playerTwo);
 
             //Game player function
-            gameOn(playerOne, playerTwo);
+            GameOn(playerOne, playerTwo);
 
         }
 
         //Game on: born players, restart table, start the game.
-        static void gameOn(Player playerOne, Player playerTwo)
+        static void GameOn(Player playerOne, Player playerTwo)
         {
             // Born players, initialize boards, initialize turns.
-            Player.bornPlayers(playerOne, playerTwo);
+            Player.BornGame(playerOne, playerTwo);
 
             // Gameplay
             while (playerOne.GetAlive() && playerTwo.GetAlive() && !Player.boardFilled)
             {
-                playerOne.gamePlay();
+                playerOne.GamePlay();
 
                 // Check if the first player is dead to end the game here if the Second person won, without letting the second person play.
                 if (!playerOne.GetAlive())
                 {
                     break;
                 }
-                playerTwo.gamePlay();
+                playerTwo.GamePlay();
             }
 
-            playerOne.gameLayout();
+            playerOne.GameLayout();
 
             // Restart or quit Game on prompt
-            gameRestart(playerOne, playerTwo);
+            GameRestart(playerOne, playerTwo);
         }
 
         //Game restarter
-        static void gameRestart(Player playerOne, Player playerTwo)
+        static void GameRestart(Player playerOne, Player playerTwo)
         {
 
             Console.WriteLine("Would you like to play another one? - y / n");
             string restartInput = Console.ReadLine();
 
-            if(restartInput.Equals("y")) 
+            if (restartInput.Equals("y"))
             {
-                Player.bornPlayers(playerOne, playerTwo);
-                gameOn(playerOne, playerTwo);
+                Player.BornGame(playerOne, playerTwo);
+                GameOn(playerOne, playerTwo);
 
-            } else if (!(restartInput.Equals("n")))
+            }
+            else if (!(restartInput.Equals("n")))
             {
                 Console.WriteLine("Please press either 'y' or 'n'");
-                gameRestart(playerOne, playerTwo);
+                GameRestart(playerOne, playerTwo);
             }
         }
 

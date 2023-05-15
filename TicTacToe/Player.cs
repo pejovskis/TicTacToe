@@ -40,7 +40,7 @@ namespace TicTacToe
         }
 
         //Born players and initialize Board 
-        public static void bornPlayers(Player player1, Player player2)
+        public static void BornGame(Player player1, Player player2)
         {
             // Example Board initialize
             for (int i = 0; i < boardExample.Length; i++)
@@ -62,18 +62,18 @@ namespace TicTacToe
             boardFilled = false;
             maxField = 9;
 
-            player1.gameLayout();
+            player1.GameLayout();
         }
 
         //Gameplay
-        public void gamePlay()
+        public void GamePlay()
         {
 
             if(!(boardFilled))
             {
                 // Declaring player's turn
                 notification += name + "'s (" + symbol + ") turn: \n";
-                gameLayout();
+                GameLayout();
                 int playerMove = 0;
 
                 // Checking if the player gave the correct input || used a busy field and throw error n try again if not.
@@ -90,11 +90,11 @@ namespace TicTacToe
                     else
                     {
                         notification += "Field already used. Try another one. \n";
-                        gamePlay();
+                        GamePlay();
                     }
 
                     //Call the gameStatusCheck Function and decrement maxField for 1
-                    alive = gameStatusCheck(board, symbol);
+                    alive = GameStatusCheck(board, symbol);
                     maxField--;
 
                     if (maxField == 0)
@@ -118,13 +118,13 @@ namespace TicTacToe
                 catch (Exception e)
                 {
                     notification += "Input should be in the range from 0 to 8. No letters or special characters. \n";
-                    gamePlay();
+                    GamePlay();
                 }
             } 
         }
 
         //Status Check
-        static bool gameStatusCheck(string[] arrayIn, char symbol)
+        static bool GameStatusCheck(string[] arrayIn, char symbol)
         {
             // Check rows
             if ((arrayIn[0] == arrayIn[1] && arrayIn[1] == arrayIn[2] && arrayIn[0] == Convert.ToString(symbol)) ||
@@ -154,7 +154,7 @@ namespace TicTacToe
         }
 
         //Game Layout
-        public void gameLayout()
+        public void GameLayout()
         {
             Console.Clear();
             Console.WriteLine("Tic Tac Toe \n");
@@ -200,6 +200,7 @@ namespace TicTacToe
                 }
             }
         }
+
 
         //Setter & Getter
         public void SetName(string name)
