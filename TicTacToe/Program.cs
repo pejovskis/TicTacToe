@@ -9,8 +9,8 @@ namespace TicTacToe
         static void Main(string[] args)
         {
             //Object generate
-            Player playerOne = new Player("playerOne", true, 'X');
-            Player playerTwo = new Player("playerTwo", true, 'O');
+            Player playerOne = new Player("playerOne", 'X');
+            Player playerTwo = new Player("playerTwo", 'O');
 
             //Welcome screen to meet the new players and enter their names
             Player.WelcomeScreen(playerOne, playerTwo);
@@ -43,7 +43,6 @@ namespace TicTacToe
             // Restart or quit Game on prompt
             gameRestart(playerOne, playerTwo);
         }
-
 
         //Game restarter
         static void gameRestart(Player playerOne, Player playerTwo)

@@ -6,6 +6,7 @@ namespace TicTacToe
 {
     public class Player
     {
+
         //Feilds
         private string name;
         private bool alive;
@@ -13,20 +14,19 @@ namespace TicTacToe
         private char symbol;
         private static int maxField;
 
+        //Constructor
+        public Player(string name, char symbol)
+        {
+            this.name = name;
+            this.symbol = symbol;
+        }
+
         //Board
         private static string[] boardFields = new string[9];
         private static string[] board = new string[9];
 
         //Notifications
         public static String notification = "Notifications: \n";
-
-        //Constructor
-        public Player(string name, bool alive, char symbol)
-        {
-            this.name = name;
-            this.alive = alive;
-            this.symbol = symbol;
-        }
 
         /*Welcome Screen and name enter*/
         public static void WelcomeScreen(Player player1, Player player2)
@@ -153,7 +153,6 @@ namespace TicTacToe
                     if (!(alive))
                     {
                         notification += "Game OVER! " + name + " Won the game! \n";
-                        //return;
                     }
                     
                 }
