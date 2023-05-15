@@ -6,7 +6,7 @@ namespace TicTacToe
     { 
         static void Main(string[] args)
         {
-            //Object generate
+            //Object generateasdddas
             Player playerOne = new Player("playerOne", true, 'X');
             Player playerTwo = new Player("playerTwo", true, 'O');
 
