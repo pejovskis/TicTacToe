@@ -23,13 +23,14 @@ namespace TicTacToe
         //Game on: born players, restart table, start the game.
         static void gameOn(Player playerOne, Player playerTwo)
         {
-            // Players born
+            // Born players, initialize boards, initialize turns.
             Player.bornPlayers(playerOne, playerTwo);
 
             // Gameplay
             while (playerOne.GetAlive() && playerTwo.GetAlive() && !Player.boardFilled)
             {
                 playerOne.gamePlay();
+
                 // Check if the first player is dead to end the game here if the Second person won, without letting the second person play.
                 if (!playerOne.GetAlive())
                 {

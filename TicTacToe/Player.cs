@@ -13,6 +13,12 @@ namespace TicTacToe
         public static bool boardFilled;
         private char symbol;
         private static int maxField;
+        //Board
+        private static string[] boardExample = new string[9];
+        private static string[] board = new string[9];
+        //Notifications
+        public static String notification = "Notifications: \n";
+
 
         //Constructor
         public Player(string name, char symbol)
@@ -20,13 +26,6 @@ namespace TicTacToe
             this.name = name;
             this.symbol = symbol;
         }
-
-        //Board
-        private static string[] boardFields = new string[9];
-        private static string[] board = new string[9];
-
-        //Notifications
-        public static String notification = "Notifications: \n";
 
         /*Welcome Screen and name enter*/
         public static void WelcomeScreen(Player player1, Player player2)
@@ -41,17 +40,18 @@ namespace TicTacToe
         //Born players and initialize Board 
         public static void bornPlayers(Player player1, Player player2)
         {
-            // Table initialize
-            for (int i = 0; i < boardFields.Length; i++)
+            // Example Board initialize
+            for (int i = 0; i < boardExample.Length; i++)
             {
                 string x = Convert.ToString(i);
-                boardFields[i] = x;
+                boardExample[i] = x;
             }
 
-            // Initialize board
+            // Actual board initialize
             for (int i = 0; i < board.Length; i++)
             {
-                board[i] = " "; // Initialize with empty strings
+                // Initialize with empty strings
+                board[i] = " "; 
             }
 
             // Player born
@@ -61,51 +61,6 @@ namespace TicTacToe
             maxField = 9;
 
             player1.gameLayout();
-        }
-
-        //Board generate
-        public void Board()
-        {
-            Console.WriteLine("Example board:");
-            for (int i = 0; i < boardFields.Length; i++)
-            {
-                Console.Write(boardFields[i]);
-                if ((i + 1) % 3 == 0)
-                {
-                    Console.WriteLine("");
-                    Console.WriteLine("----------");
-                }
-                else
-                {
-                    Console.Write(" | ");
-                }
-            }
-
-            Console.WriteLine();
-
-            Console.WriteLine("Current board status:");
-            for (int i = 0; i < board.Length; i++)
-            {
-                Console.Write(board[i]);
-                if ((i + 1) % 3 == 0)
-                {
-                    Console.WriteLine("");
-                    Console.WriteLine("----------");
-                }
-                else
-                {
-                    Console.Write(" | ");
-                }
-            }
-        }
-
-        //Game Layout
-        public void gameLayout()
-        {
-            Console.Clear();
-            Console.WriteLine("Tic Tac Toe \n");
-            Board();
-            Console.WriteLine(notification);
         }
 
         //Gameplay
@@ -162,13 +117,6 @@ namespace TicTacToe
                     gamePlay();
                 }
             } 
-            else
-            {
-                notification += "No more fields";
-            }
-
-
-            
         }
 
         //Status Check
@@ -200,7 +148,52 @@ namespace TicTacToe
             return true;
         }
 
+        //Game Layout
+        public void gameLayout()
+        {
+            Console.Clear();
+            Console.WriteLine("Tic Tac Toe \n");
+            Board();
+            Console.ForegroundColor= ConsoleColor.Green;
+            Console.WriteLine(notification);
+            Console.ResetColor();
+        }
 
+        //Board generate
+        public void Board()
+        {
+            Console.WriteLine("Example board:");
+            for (int i = 0; i < boardExample.Length; i++)
+            {
+                Console.Write(boardExample[i]);
+                if ((i + 1) % 3 == 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("----------");
+                }
+                else
+                {
+                    Console.Write(" | ");
+                }
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine("Current board status:");
+            for (int i = 0; i < board.Length; i++)
+            {
+                Console.Write(board[i]);
+                if ((i + 1) % 3 == 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("----------");
+                }
+                else
+                {
+                    Console.Write(" | ");
+                }
+            }
+        }
 
         //Setter & Getter
         public void SetName(string name)
