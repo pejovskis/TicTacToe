@@ -12,7 +12,8 @@ namespace TicTacToe
         char symbol;
 
         //Tabelle
-        static string[] tab = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
+        //static string[] tab = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
+        static string[] tab = new string[9];
 
         //Constructor
         public Player(string name, bool alive, char symbol)
@@ -20,6 +21,33 @@ namespace TicTacToe
             this.name = name;
             this.alive = alive;
             this.symbol = symbol;
+        }
+
+        /*Welcome Screen and name enter*/
+        public static void WelcomeScreen(Player player1, Player player2)
+        {
+            Console.WriteLine("Welcome. Enter first player name: ");
+            player1.SetName(Console.ReadLine());
+            Console.WriteLine("Welcome. Enter second player name: ");
+            player2.SetName(Console.ReadLine());
+
+        }
+
+        public static void bornPlayers(Player player1, Player player2)
+        {
+
+            for(int i = 0; i < tab.Length; i++)
+            {
+                string x = Convert.ToString(i);
+                tab[i] = x;
+            }
+
+            player1.SetAlive(true);
+            player2.SetAlive(true);
+
+            Console.WriteLine("Welcome to TicTacToe " + player1.GetName() + " and " + player2.GetName());
+
+            player1.Tabelle();
         }
 
         //Tabelle generate
@@ -43,12 +71,21 @@ namespace TicTacToe
         //Gameplay
         public void gamePlay()
         {
-                Console.WriteLine(name + "'s turn");
-                int playerMove = Convert.ToInt32(Console.ReadLine());
+            
+            Console.WriteLine(name + "'s turn");
+            int playerMove = 0;
+
+            try
+            {
+                playerMove = Convert.ToInt32(Console.ReadLine());
 
                 if (!(tab[playerMove].Equals("X")) && !(tab[playerMove].Equals("O")))
                 {
                     tab[playerMove] = Convert.ToString(symbol);
+                } else
+                {
+                    Console.WriteLine("Field already used. Try another one");
+                    gamePlay();
                 }
 
                 Tabelle();
@@ -60,6 +97,15 @@ namespace TicTacToe
                 {
                     Console.WriteLine("Game OVER!" + name + " Won the game!");
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Input should be in range from 0 - 8. No letters or special characters.");
+                gamePlay();
+            }
+
+
+
         }
 
         //Status Check
